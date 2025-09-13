@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Feliz Cumpleaños </title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card:#0b1220cc;
+      --accent:#ff7ab6;
+      --glass: rgba(255,255,255,0.06);
+    }
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+    body{
+      background: radial-gradient(ellipse at 10% 10%, rgba(255,122,182,0.06), transparent 10%),
+                  linear-gradient(180deg,#071029 0%, #07102a 40%, #081430 100%);
+      color:#fff;overflow:hidden;
+      display:flex;align-items:center;justify-content:center;
+    }
+
+    /* Contenedor central */
+    .card{
+      position:relative;
+      width:min(980px,92vw);
+      height:min(640px,84vh);
+      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius:18px;padding:28px;box-shadow:0 10px 40px rgba(2,6,23,0.6);backdrop-filter: blur(6px);
+      overflow:hidden;display:flex;gap:20px;align-items:center;
+    }
+
+    /* Left column: images */
+    .left{
+      width:38%;height:100%;display:flex;flex-direction:column;gap:12px;
+    }
+    .left img{width:100%;height:calc(50% - 6px);object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,0.04);}
+
+    /* Right column: mensaje */
+    .right{flex:1;height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:8px 6px;}
+    h1{font-size:2.2rem;margin:0 0 8px 0;letter-spacing:0.6px}
+    p.lead{margin:0 0 16px 0;color:rgba(255,255,255,0.85)}
+
+    /* Contenedor de frases flotantes (full area) */
+    .floating-area{position:absolute;inset:0;pointer-events:none}
+
+    .phrase{
+      position:absolute;left:50%;transform:translateX(-50%);
+      white-space:nowrap;font-weight:700;padding:10px 18px;border-radius:999px;
+      font-size:1.05rem;background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.04);backdrop-filter: blur(4px);
+      box-shadow:0 8px 18px rgba(2,6,23,0.6);
+      color: #fff;opacity:0;
+    }
+
+    /* animaciones */
+    @keyframes floatUp {
+      0%{transform:translate(-50%,20px) scale(0.96);opacity:0}
+      10%{opacity:1}
+      100%{transform:translate(-50%,-360px) scale(1);opacity:0}
+    }
+
+    /* Variantes de tamaño y giro para hacerlas naturales */
+    .s1{font-size:0.95rem;padding:8px 14px}
+    .s2{font-size:1.35rem;padding:12px 20px}
+    .s3{font-size:1rem;padding:9px 16px}
+
+    /* Pequeñas decoraciones en background: globos confeti */
+    .balloon{position:absolute;width:90px;height:120px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:linear-gradient(180deg,#ff8ab8,#ff5f7a);transform-origin:center;}
+    .balloon::after{content:'';position:absolute;bottom:-16px;left:50%;width:2px;height:16px;background:linear-gradient(180deg,#fff3,#0001);transform:translateX(-50%)}
+
+    /* Responsive */
+    @media (max-width:820px){
+      .card{flex-direction:column;height:auto;padding:18px}
+      .left{width:100%;flex-direction:row;height:140px}
+      .left img{height:100%;width:calc(50% - 6px)}
+      .right{align-items:center;text-align:center}
+      h1{font-size:1.6rem}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="card" role="main" aria-label="Tarjeta de cumpleaños">
+    <div class="left">
+      <img src="https://i.postimg.cc/GpB0cjc9/2025826201340-1-3.jpg" alt="Pastel de cumpleaños"/>
+      <img src="https://raw.githubusercontent.com/PabloBetrano/Prueba1/b8ff10fdd37d780dfe87075eae42c7509b0a2b28/IMG_0785.jpeg" alt="Globos y decoraciones"/>
+	  
+    </div>
+    <div class="right">
+      <h1>Feliz cumpleaños — ¡Que lo pases increíble!</h1>
+    </div>
+
+    <div class="floating-area" id="floatingArea" aria-hidden="true"></div>
+
+    <!-- decoraciones fijas -->
+    <div class="balloon" style="right:6%;top:10%;transform:rotate(-12deg);filter:drop-shadow(0 8px 18px rgba(0,0,0,0.5))"></div>
+    <div class="balloon" style="left:8%;bottom:8%;width:70px;height:95px;background:linear-gradient(180deg,#ffd36b,#ffab2b);transform:rotate(8deg)"></div>
+
+  </div>
+
+  <script>
+    const phrases = [
+      '¡Feliz cumpleaños! 🎂',
+      'Que Dios te bendiga. 🙏',
+      'Qué bonito conocerte. 🌟',
+      'Que disfrutes tu día al máximo. 🥳',
+	  'Que siempre seas feliz 😄',
+      'Es un honor jugar naipe contigo. ♠️♥️',
+      'Que duermas mucho hoy  😄',
+      'Que todos tus deseos se hagan realidad. ✨',
+      'Gracias por ser tan especial. 💖',
+      'Ríe y tome guaro jajaja 🎉',
+      'Un abrazo grande en tu día. 🤗',
+      'Que nunca te falte alegría. 🌈',
+      'Que tome buen vino 🥂',
+      'Felicidades por un año más. 🌟',
+	  'Que no le peguen duro los casi 30 😄',
+	  'Que proximamente viajes mucho 😄',
+	  'Que deje de robarme Stickers 😄',
+	  'Que tome mucho Cacique 😄',
+	  'Que deje de ser tan virgo😄',
+	  'Que coma su buen queque de Chocolate 😄',
+	   '¡Feliz cumpleaños! 🎂',
+	    '¡Feliz cumpleaños! 🎂',
+		 '¡Feliz cumpleaños! 🎂',
+    ];
+
+    const floating = document.getElementById('floatingArea');
+
+    function randomBetween(min,max){return Math.random()*(max-min)+min}
+
+    function showPhrase(text, opts={}){
+      const el = document.createElement('div');
+      el.className = 'phrase ' + (opts.size || 's1');
+      el.textContent = text;
+      // random horizontal position
+      const x = randomBetween(10,90);
+      el.style.left = x + '%';
+      // random vertical start near bottom
+      const startY = randomBetween(60,85);
+      el.style.top = startY + '%';
+      // small rotate
+      el.style.transform = `translateX(-50%) rotate(${randomBetween(-8,8)}deg)`;
+      // animation duration and delay
+      const duration = randomBetween(4.4,7.2);
+      const delay = 0; // immediate
+      el.style.animation = `floatUp ${duration}s linear ${delay}s forwards`;
+      floating.appendChild(el);
+
+      setTimeout(()=>{
+        el.remove();
+      }, (duration+0.2)*1000);
+    }
+
+    // modo automático permanente
+    window.addEventListener('load', ()=>{
+      setInterval(()=>{
+        const p = phrases[Math.floor(Math.random()*phrases.length)];
+        showPhrase(p, {size: ['s1','s2','s3'][Math.floor(Math.random()*3)]});
+      }, 1000);
+      setTimeout(()=>{
+        showPhrase('¡Hoy es tu día! 🎈', {size:'s2'});
+      }, 700);
+    });
+  </script>
+</body>
+</html>
